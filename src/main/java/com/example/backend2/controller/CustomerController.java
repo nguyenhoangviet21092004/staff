@@ -1,14 +1,13 @@
 package com.example.backend2.controller;
 
+import com.example.backend2.model.Computer;
 import com.example.backend2.model.Customer;
 import com.example.backend2.service.CustomerService;
+import com.example.backend2.service.IComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +18,7 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
 
     @GetMapping("")
     public ResponseEntity<List<Customer>> findAll() {

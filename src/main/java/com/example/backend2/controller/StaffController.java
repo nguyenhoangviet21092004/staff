@@ -1,6 +1,8 @@
 package com.example.backend2.controller;
 
+import com.example.backend2.model.Computer;
 import com.example.backend2.model.Staff;
+import com.example.backend2.repository.IStaffRepo;
 import com.example.backend2.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class StaffController {
     @Autowired
     private StaffService staffService;
+    @Autowired
+    private IStaffRepo iStaffRepo;
 
     @GetMapping("")
     public ResponseEntity<List<Staff>> findAll() {
@@ -64,6 +68,15 @@ public class StaffController {
         staffService.delete(staff.get());
         return new ResponseEntity<>(staff.get(), HttpStatus.OK);
 
+    }
+
+    @GetMapping("/searchByName")
+    public ResponseEntity searchByName(@RequestParam String keyword) {
+        List<Computer> customers = iStaffRepo.findAllByName(keyword);
+        if (customers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
 }
